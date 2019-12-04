@@ -30,7 +30,7 @@ module Cloudflare
 
     def fetch_next_page
       response = @client.get(@endpoint, @params.merge(page: @next_page))
-      @last_page = response.empty? || response[:result_info][:page] == response[:result_info][:total_pages]
+      @last_page = response[:result].empty? || response[:result_info][:page] == response[:result_info][:total_pages]
       results = response[:result].map{ |result| @response_class.new(result: result) }
       @collection += results
       @next_page = response[:result_info][:page] + 1 unless last?

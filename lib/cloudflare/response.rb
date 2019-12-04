@@ -8,8 +8,8 @@ module Cloudflare::Response
       @body = response
     end
 
-    def result
-      body[:result]
+    def result(key)
+      body[:result]&.fetch(key, nil)
     end
 
     def successful?
@@ -25,7 +25,7 @@ module Cloudflare::Response
     end
 
     def result_info
-      body[:result_info]
+      body.fetch(:result_info, nil)
     end
 
   end
@@ -35,8 +35,8 @@ module Cloudflare::Response
 
     def initialize(response)
       super
-      @id = result[:id]
-      @name = result[:name]
+      @id = result(:id)
+      @name = result(:name)
     end
   end
 
@@ -45,9 +45,9 @@ module Cloudflare::Response
 
     def initialize(response)
       super
-      @id = result[:id]
-      @expression = result[:expression]
-      @paused = result[:paused]
+      @id = result(:id)
+      @expression = result(:expression)
+      @paused = result(:paused)
     end
   end
 
@@ -56,12 +56,12 @@ module Cloudflare::Response
 
     def initialize(response)
       super
-      @id = result[:id]
-      @paused = result[:paused]
-      @description = result[:description]
-      @action = result[:action]
-      @priority = result[:priority]
-      @filter = Filter.new(result: result[:filter])
+      @id = result(:id)
+      @paused = result(:paused)
+      @description = result(:description)
+      @action = result(:action)
+      @priority = result(:priority)
+      @filter = Filter.new(result: result(:filter))
     end
   end
 
@@ -70,9 +70,9 @@ module Cloudflare::Response
 
     def initialize(response)
       super
-      @id = result[:id]
-      @type = result[:type]
-      @email = result[:email]
+      @id = result(:id)
+      @type = result(:type)
+      @email = result(:email)
     end
   end
 
@@ -82,16 +82,16 @@ module Cloudflare::Response
 
     def initialize(response)
       super
-      @id = result[:id]
-      @name = result[:name]
-      @price = result[:price]
-      @currency = result[:currency]
-      @frequency = result[:frequency]
-      @is_subscribed = result[:is_subscribed]
-      @can_subscribe = result[:can_subscribe]
-      @legacy_id = result[:legacy_id]
-      @legacy_discount = result[:legacy_discount]
-      @externally_managed = result[:externally_managed]
+      @id = result(:id)
+      @name = result(:name)
+      @price = result(:price)
+      @currency = result(:currency)
+      @frequency = result(:frequency)
+      @is_subscribed = result(:is_subscribed)
+      @can_subscribe = result(:can_subscribe)
+      @legacy_id = result(:legacy_id)
+      @legacy_discount = result(:legacy_discount)
+      @externally_managed = result(:externally_managed)
     end
   end
 
@@ -102,23 +102,23 @@ module Cloudflare::Response
 
     def initialize(response)
       super
-      @id = result[:id]
-      @name = result[:name]
-      @status = result[:status]
-      @paused = result[:paused]
-      @type = result[:type]
-      @development_mode = result[:development_mode]
-      @name_servers = result[:name_servers]
-      @original_name_servers = result[:original_name_servers]
-      @original_registrar = result[:original_registrar]
-      @original_dnshost = result[:original_dnshost]
-      @modified_on = result[:modified_on]
-      @created_on = result[:created_on]
-      @activated_on = result[:activated_on]
-      @owner = Owner.new(result: result[:owner])
-      @account = Account.new(result: result[:account])
-      @permissions = result[:permissions]
-      @plan = Plan.new(result: result[:plan])
+      @id = result(:id)
+      @name = result(:name)
+      @status = result(:status)
+      @paused = result(:paused)
+      @type = result(:type)
+      @development_mode = result(:development_mode)
+      @name_servers = result(:name_servers)
+      @original_name_servers = result(:original_name_servers)
+      @original_registrar = result(:original_registrar)
+      @original_dnshost = result(:original_dnshost)
+      @modified_on = result(:modified_on)
+      @created_on = result(:created_on)
+      @activated_on = result(:activated_on)
+      @owner = Owner.new(result: result(:owner))
+      @account = Account.new(result: result(:account))
+      @permissions = result(:permissions)
+      @plan = Plan.new(result: result(:plan))
     end
   end
 

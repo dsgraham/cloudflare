@@ -8,12 +8,12 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Derek Graham"]
   spec.email         = ["derek@geotix.com"]
 
-  spec.summary       = %q{Wrapper for Cloudflare API}
-  spec.description   = %q{Wrapper for Cloudflare API}
-  spec.homepage      = "https://geotix.com"
+  spec.summary       = %q{Ruby client for Cloudflare API v4}
+  spec.description   = %q{Ruby client for Cloudflare API v4}
+  spec.homepage      = "https://github.com/dsgraham/cloudflare"
   spec.license       = "MIT"
 
-  #spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
+  spec.metadata["allowed_push_host"] = "https://github.com/dsgraham/cloudflare"
 
   spec.metadata["homepage_uri"] = spec.homepage
   spec.metadata["source_code_uri"] = spec.homepage
