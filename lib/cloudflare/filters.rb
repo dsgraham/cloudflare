@@ -6,6 +6,8 @@ module Cloudflare
   class Filters
 
     def initialize(base_url:, **auth_params)
+      @base_url = base_url
+      @auth_params = auth_params
       @client = Cloudflare::HttpClient.new(base_url: base_url, **auth_params)
     end
 
@@ -25,9 +27,20 @@ module Cloudflare
       Response::Filter.new(response)
     end
 
+    def update(zone_id:, id:, paused:, expression:, description:)
+      payload = {paused: paused, expression: expression, description: description}
+      response = @client.put("#{zone_id}/filters/#{id}", payload)
+      Response::Filter.new(response)
+    end
+
     def delete(zone_id:, id:)
       response = @client.delete("#{zone_id}/filters/#{id}")
       Response::Filter.new(response)
+    end
+
+    def validate_expression(zone_id:, expression:)
+      validate_url = @base_url.remove('zones')
+      Cloudflare::HttpClient.new(base_url: validate_url, **@auth_params).post("/filters/validate-expr", {expression: expression})
     end
 
   end

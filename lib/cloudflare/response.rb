@@ -40,6 +40,28 @@ module Cloudflare::Response
     end
   end
 
+  class DnsRecord < Base
+    attr_accessor :id, :type, :name, :content, :proxiable, :proxied, :ttl, :locked, :zone_id,
+                  :zone_name, :created_on, :modified_on, :data, :meta
+    def initialize(response)
+      super
+      @id = result(:id)
+      @type = result(:type)
+      @name = result(:name)
+      @content = result(:content)
+      @proxiable = result(:proxiable)
+      @proxied = result(:proxied)
+      @ttl = result(:ttl)
+      @locked = result(:locked)
+      @zone_id = result(:zone_id)
+      @zone_name = result(:zone_name)
+      @created_on = result(:created_on)
+      @modified_on = result(:modified_on)
+      @data = result(:data)
+      @meta = result(:meta)
+    end
+  end
+
   class Filter < Base
     attr_accessor :id, :expression, :paused
 

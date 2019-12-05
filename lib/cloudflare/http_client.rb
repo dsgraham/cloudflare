@@ -22,7 +22,7 @@ module Cloudflare
       headers[:params] = payload[:params] if payload.include? :params
       url = "#{@base_url}/#{endpoint}"
       request_options = {method: method, url: url, headers: headers}
-      if method == :post
+      if method == :post || method == :put
         payload.delete :params
         request_options[:payload] = payload.to_json
       end
@@ -44,6 +44,10 @@ module Cloudflare
 
     def post(endpoint, payload = {})
       execute(method: :post, endpoint: endpoint, payload: payload)
+    end
+
+    def put(endpoint, payload = {})
+      execute(method: :put, endpoint: endpoint, payload: payload)
     end
 
     def delete(endpoint)
