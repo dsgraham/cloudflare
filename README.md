@@ -20,7 +20,75 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Zones
+
+#### Listing zones
+```ruby
+zones = Cloudflare::Client.new(api_token: '[API_TOKEN]').zones.list
+zones.each do |zone|
+  puts zone.id
+end
+```
+#### Get a zone by ID
+```ruby
+zones = Cloudflare::Client.new(api_token: '[API_TOKEN]').zones.retrieve(zone_id: '[ZONE_ID]')
+```
+
+### Firewall Rules
+
+#### List firewall rules for a zone
+```ruby
+rules = Cloudflare::Client.new(api_token: '[API_TOKEN]').firewall_rules.list(zone_id: '[ZONE_ID]')
+rules.each do |rule|
+  puts rule.id
+end
+```
+#### Get a firewall rule by ID
+```ruby
+rule = Cloudflare::Client.new(api_token: '[API_TOKEN]').firewall_rules.retrieve(zone_id: '[ZONE_ID]', id: '[RULE_ID]')
+```
+#### Create a firewall rule with an existing filter
+```ruby
+client = Cloudflare::Client.new(auth_emai: '[EMAIL]', auth_key: '[AUTH_KEY]')
+rule = client.firewall_rules.create(zone_id: '[ZONE_ID]', 
+                                    filter_id: '[FILTER_ID]',
+                                    action: 'block',
+                                    description: 'Block traffic from...')
+```
+#### Create a firewall rule and filter at the same time
+```ruby
+client = Cloudflare::Client.new(auth_emai: '[EMAIL]', auth_key: '[AUTH_KEY]')
+rule = client.firewall_rules.create_with_filter(zone_id: '[ZONE_ID]', 
+                                    filter_id: {description: 'Stop Russian hackers', expression: '(ip.geoip.country eq "RU")'},
+                                    action: 'block',
+                                    description: 'Block traffic from...')
+```
+#### Delete a firewall rule
+```ruby
+client = Cloudflare::Client.new(auth_emai: '[EMAIL]', auth_key: '[AUTH_KEY]')
+client.firewall_rules.delete(zone_id: '[ZONE_ID]', id: '[RULE_ID]')
+```
+
+### Filters
+
+#### List filters for a zone
+```ruby
+filters = Cloudflare::Client.new(api_token: '[API_TOKEN]').filters.list(zone_id: '[ZONE_ID]')
+```
+#### Get a filter by ID
+```ruby
+filter = = Cloudflare::Client.new(api_token: '[API_TOKEN]').filters.retrieve(zone_id: '[ZONE_ID]', id: '[FILTER_ID]')
+```
+#### Create a filter
+```ruby
+client = Cloudflare::Client.new(auth_emai: '[EMAIL]', auth_key: '[AUTH_KEY]')
+filter = client.filters.create(zone_id: '[ZONE_ID]', expression: '(ip.geoip.country eq "RU")', description: 'Country is Russia')
+```
+#### Delete a filter
+```ruby
+client = Cloudflare::Client.new(auth_emai: '[EMAIL]', auth_key: '[AUTH_KEY]')
+client.filters.delete(zone_id: '[ZONE_ID]', id: '[FILTER_ID]')
+```
 
 ## Development
 
@@ -30,7 +98,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/cloudflare.
+Bug reports and pull requests are welcome on GitHub at https://github.com/dsgraham/cloudflare.
 
 ## License
 
