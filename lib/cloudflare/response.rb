@@ -63,13 +63,14 @@ module Cloudflare::Response
   end
 
   class Filter < Base
-    attr_accessor :id, :expression, :paused
+    attr_accessor :id, :expression, :paused, :description
 
     def initialize(response)
       super
       @id = result(:id)
       @expression = result(:expression)
       @paused = result(:paused)
+      @description = result(:description)
     end
   end
 
